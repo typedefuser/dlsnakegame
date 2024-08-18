@@ -1,17 +1,15 @@
-
 #include "raylib.h"
+#include"layout.h"
 
 int main() {
     // Initialize the window
-    InitWindow(800, 600, "Raylib Example: Text Inside Circle");
+    const int screenWidth = 800;
+    const int screenHeight = 600;
+    InitWindow(screenWidth, screenHeight, "Raylib Example: Text Inside Circle");
     SetTargetFPS(60);
 
-    // Define text and circle properties
-    const char* text = "Inside";
-    int circleRadius = 100;
-    Vector2 circleCenter = { 400, 300 }; // Center of the circle
-    int fontSize = 20;
-
+    Layout drawer(screenWidth, screenHeight, 50);
+   
     // Main game loop
     while (!WindowShouldClose()) {
         // Update
@@ -19,20 +17,9 @@ int main() {
         // Draw
         BeginDrawing();
         ClearBackground(RAYWHITE);
-
-        // Draw the circle
-        DrawCircleV(circleCenter, circleRadius, LIGHTGRAY);
-
-        // Calculate text size and position
-        Vector2 textSize = MeasureTextEx(GetFontDefault(), text, fontSize, 1);
-        Vector2 textPosition = {
-            circleCenter.x - textSize.x / 2,
-            circleCenter.y - textSize.y / 2
-        };
-
-        // Draw the text inside the circle
-        DrawTextEx(GetFontDefault(), text, textPosition, fontSize, 1, BLACK);
-
+        drawer.DrawLayout();
+        drawer.DrawTarget();
+        
         EndDrawing();
     }
 
@@ -41,4 +28,3 @@ int main() {
 
     return 0;
 }
-
